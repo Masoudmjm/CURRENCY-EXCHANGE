@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.util.List" />
+        <import type="com.masoudjafari.myapplication.data.CurrencyExchangeRate" />
+        <import type="androidx.lifecycle.LiveData" />
+
+        <variable name="spinnerList"
+            type="LiveData&lt;List&lt;CurrencyExchangeRate&gt;&gt;" />
+
+        <variable
+            name="viewmodel"
+            type="com.masoudjafari.myapplication.currencyExchange.CurrencyExchangeViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_padding"
+        tools:context=".currencyExchange.CurrencyExchangeActivity"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_balances"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/balancesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_distance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:items="@{viewmodel.balances}"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_my_balances" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_distance"
+            android:text="@string/currency_exchange"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balancesList" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/view_distance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_arrow_up"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_sell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/view_distance"
+                android:text="@string/sell"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editText_sell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxLength="8"
+                android:textColor="@color/red"
+                android:layout_marginHorizontal="@dimen/view_distance"
+                android:text="@={viewmodel.sellCurrencyValue}"
+                app:layout_constraintBottom_toBottomOf="@id/imageView"
+                app:layout_constraintEnd_toStartOf="@+id/spinner_sell"
+                app:layout_constraintStart_toEndOf="@+id/barrier"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spinner_sell"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="@dimen/activity_padding"
+                android:minWidth="100dp"
+                app:sourceData="@{viewmodel.currencyRates}"
+                app:layout_constraintBottom_toBottomOf="@id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:setOnItemSelectedListener="@{viewmodel.sellSelectListener}"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_arrow_down"
+                android:layout_marginTop="@dimen/view_distance"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageView" />
+
+            <TextView
+                android:id="@+id/textView_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/view_distance"
+                android:text="@string/receive"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView1"
+                app:layout_constraintTop_toTopOf="@id/imageView1" />
+
+            <TextView
+                android:id="@+id/editText_receive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="end"
+                android:maxLength="8"
+                android:textColor="@color/green"
+                android:layout_marginHorizontal="@dimen/view_distance"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/spinner_receive"
+                app:layout_constraintStart_toEndOf="@+id/barrier"
+                app:layout_constraintTop_toTopOf="@id/imageView1" />
+
+            <Spinner
+                android:id="@+id/spinner_receive"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="100dp"
+                android:paddingHorizontal="@dimen/activity_padding"
+                app:sourceData="@{viewmodel.currencyRates}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageView1"
+                tools:setOnItemSelectedListener="@{viewmodel.receiveSelectListener}"/>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="right"
+                app:constraint_referenced_ids="textView_receive, textView_sell"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_distance"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:onClick="@{() ->viewmodel.submitCurrencyExchange()}"
+            app:cardCornerRadius="@dimen/cardView_corner_redius"
+            app:cardBackgroundColor="@color/purple_500">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="@dimen/view_distance"
+                android:layout_marginVertical="8dp"
+                android:layout_gravity="center"/>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</layout>

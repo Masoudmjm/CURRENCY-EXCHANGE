@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="my_balances">MY BALANCES</string>
+    <string name="currency_exchange">CURRENCY EXCHANGE</string>
+    <string name="sell">sell</string>
+    <string name="receive">receive</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="calculation_error">Error in Calculation</string>
+    <string name="sameCurrency">Please choose different Currencies</string>
+    <string name="enterSellValue">Please enter the sell value</string>
+    <string name="not_enough_balance">Balance is not enough</string>
+    <string name="submit">SUBMIT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
